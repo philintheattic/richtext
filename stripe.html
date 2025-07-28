@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language as Commodity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            background: #fafafa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e8e8e8;
+        }
+
+        .header {
+            border-bottom: 1px solid #e8e8e8;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: #2c2c2c;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .text-area {
+            flex: 2.5;
+            padding: 50px;
+            background: white;
+        }
+
+        .poem-title {
+            font-size: 1.6em;
+            margin-bottom: 40px;
+            color: #333;
+            text-align: center;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .poem-text {
+            color: #444;
+            font-size: 1.3em;
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .locked-word {
+            background: #333;
+            color: white;
+            padding: 1px 6px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            display: inline-block;
+            margin: 0 1px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .locked-word:hover {
+            background: #555;
+        }
+
+        .unlocked-word {
+            background: #f0f0f0;
+            color: #333;
+            padding: 1px 6px;
+            margin: 0 1px;
+            display: inline-block;
+            animation: unlock 0.4s ease;
+            border: 1px solid #ddd;
+        }
+
+        @keyframes unlock {
+            from { 
+                background: #333;
+                color: white;
+            }
+            to { 
+                background: #f0f0f0;
+                color: #333;
+            }
+        }
+
+        .sidebar {
+            flex: 1;
+            background: #f8f8f8;
+            border-left: 1px solid #e8e8e8;
+            padding: 40px 30px;
+        }
+
+        .sidebar h3 {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: 400;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .package {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 25px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .package:hover {
+            border-color: #999;
+        }
+
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .package-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            text-transform: capitalize;
+        }
+
+        .package-price {
+            font-size: 1.1em;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .package-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .buy-button {
+            background: #333;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .buy-button:hover {
+            background: #555;
+        }
+
+        .stats {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stats h4 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .stat-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 2px;
+            background: #e8e8e8;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #333;
+            transition: width 0.5s ease;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 6px 10px;
+            font-size: 0.75em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 1000;
+            margin-bottom: 5px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .locked-word:hover .tooltip {
+            opacity: 1;
+        }
+
+        .purchased {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .purchased .buy-button {
+            background: #666;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Language as Commodity</h1>
+            <p>An exploration of value, access, and the commodification of expression</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="text-area">
+                <div class="poem-title">"The Cost of Expression"</div>
+                <div class="poem-text" id="poemText">
+                    In the <span class="locked-word" data-type="adjective" data-word="golden">■■■■■■<div class="tooltip">Adjective - $0.99</div></span> morning light,<br>
+                    Where <span class="locked-word" data-type="adjective" data-word="ancient">■■■■■■<div class="tooltip">Adjective - $0.99</div></span> trees <span class="locked-word" data-type="verb" data-word="whisper">■■■■■■■<div class="tooltip">Verb - $1.49</div></span> secrets,<br>
+                    I <span class="locked-word" data-type="verb" data-word="walk">■■■■<div class="tooltip">Verb - $1.49</div></span> through <span class="locked-word" data-type="adjective" data-word="forgotten">■■■■■■■■■<div class="tooltip">Adjective - $0.99</div></span> paths,<br>
+                    Searching for words that money cannot <span class="locked-word" data-type="verb" data-word="steal">■■■■■<div class="tooltip">Verb - $1.49</div></span>.<br><br>
+                    
+                    But even thoughts become <span class="locked-word" data-type="adjective" data-word="expensive">■■■■■■■■■<div class="tooltip">Adjective - $0.99</div></span>,<br>
+                    And dreams require <span class="locked-word" data-type="noun" data-word="subscription">■■■■■■■■■■■■<div class="tooltip">Noun - $1.29</div></span> fees.<br>
+                    The <span class="locked-word" data-type="adjective" data-word="simple">■■■■■■<div class="tooltip">Adjective - $0.99</div></span> act of feeling<br>
+                    Now comes with <span class="locked-word" data-type="adjective" data-word="hidden">■■■■■■<div class="tooltip">Adjective - $0.99</div></span> charges.
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="stats">
+                    <h4>Access Status</h4>
+                    <div class="stat-item">
+                        <span>Words Unlocked</span>
+                        <span class="stat-value" id="unlockedCount">0 of 12</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Total Investment</span>
+                        <span class="stat-value" id="totalSpent">$0.00</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <h3>Word Categories</h3>
+                
+                <div class="package" data-type="adjective" data-price="0.99">
+                    <div class="package-header">
+                        <div class="package-name">Adjectives</div>
+                        <div class="package-price">$0.99</div>
+                    </div>
+                    <div class="package-description">Access to all descriptive words and qualities within this text.</div>
+                    <button class="buy-button">Purchase</button>
+                </div>
+                
+                <div class="package" data-type="verb" data-price="1.49">
+                    <div class="package-header">
+                        <div class="package-name">Verbs</div>
+                        <div class="package-price">$1.49</div>
+                    </div>
+                    <div class="package-description">Unlock all action words and movements within this composition.</div>
+                    <button class="buy-button">Purchase</button>
+                </div>
+                
+                <div class="package" data-type="noun" data-price="1.29">
+                    <div class="package-header">
+                        <div class="package-name">Nouns</div>
+                        <div class="package-price">$1.29</div>
+                    </div>
+                    <div class="package-description">Reveal all objects, concepts, and entities mentioned herein.</div>
+                    <button class="buy-button">Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let unlockedWords = 0;
+        let totalSpent = 0;
+        const totalWords = 12;
+        
+        // Remove the mock processPayment function since we're using real payments
+        
+        function unlockWords(type) {
+            const words = document.querySelectorAll(`[data-type="${type}"]`);
+            words.forEach(word => {
+                if (word.classList.contains('locked-word')) {
+                    word.classList.remove('locked-word');
+                    word.classList.add('unlocked-word');
+                    word.textContent = word.dataset.word;
+                    unlockedWords++;
+                }
+            });
+        }
+        
+        function updateStats() {
+            document.getElementById('unlockedCount').textContent = `${unlockedWords} of ${totalWords}`;
+            document.getElementById('totalSpent').textContent = `$${totalSpent.toFixed(2)}`;
+            document.getElementById('progressFill').style.width = `${(unlockedWords / totalWords) * 100}%`;
+        }
+        
+        // Stripe Payment Link URLs (replace with your actual links)
+        const paymentLinks = {
+            adjective: 'https://buy.stripe.com/test_your_adjective_link',
+            verb: 'https://buy.stripe.com/test_your_verb_link',
+            noun: 'https://buy.stripe.com/test_your_noun_link'
+        };
+
+        document.querySelectorAll('.package').forEach(package => {
+            package.addEventListener('click', function() {
+                if (this.classList.contains('purchased')) return;
+                
+                const type = this.dataset.type;
+                const paymentUrl = paymentLinks[type];
+                
+                if (paymentUrl) {
+                    // Store the purchase attempt in localStorage for when user returns
+                    localStorage.setItem('attemptedPurchase', type);
+                    // Redirect to Stripe Payment Link
+                    window.location.href = paymentUrl;
+                }
+            });
+        });
+
+        // Check for successful payment on page load
+        function checkForSuccessfulPayment() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const unlockType = urlParams.get('unlock');
+            const paymentStatus = urlParams.get('payment');
+            
+            if (paymentStatus === 'success' && unlockType) {
+                // Unlock the purchased word type
+                unlockWords(unlockType);
+                markPackageAsPurchased(unlockType);
+                
+                // Store the purchase permanently
+                let purchases = JSON.parse(localStorage.getItem('purchases') || '[]');
+                if (!purchases.includes(unlockType)) {
+                    purchases.push(unlockType);
+                    localStorage.setItem('purchases', JSON.stringify(purchases));
+                    
+                    // Update total spent
+                    const prices = { adjective: 0.99, verb: 1.49, noun: 1.29 };
+                    totalSpent += prices[unlockType];
+                    
+        updateStats();
+                }
+                
+                // Clean up URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                // Show success message
+                showSuccessMessage(unlockType);
+            }
+        }
+
+        // Load previously purchased word types
+        function loadPreviousPurchases() {
+            const purchases = JSON.parse(localStorage.getItem('purchases') || '[]');
+            const prices = { adjective: 0.99, verb: 1.49, noun: 1.29 };
+            
+            purchases.forEach(type => {
+                unlockWords(type);
+                markPackageAsPurchased(type);
+                totalSpent += prices[type];
+            });
+            
+            updateStats();
+        }
+
+        function markPackageAsPurchased(type) {
+            const package = document.querySelector(`[data-type="${type}"]`);
+            if (package) {
+                package.classList.add('purchased');
+                package.querySelector('.buy-button').textContent = 'Purchased';
+            }
+        }
+
+        function showSuccessMessage(type) {
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #333;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 4px;
+                z-index: 1000;
+                font-family: 'Times New Roman', serif;
+            `;
+            message.textContent = `Successfully unlocked ${type}s!`;
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPreviousPurchases();
+            checkForSuccessfulPayment();
+        });
+        
+        updateStats();
+    </script>
+</body>
+</html>
