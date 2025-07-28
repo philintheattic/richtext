@@ -317,7 +317,7 @@
                     <div class="package-description">Access to all descriptive words and qualities within this text.</div>
                     <button class="buy-button">Purchase</button>
                 </div>
-                
+                <!--
                 <div class="package" data-type="verb" data-price="1.49">
                     <div class="package-header">
                         <div class="package-name">Verbs</div>
@@ -335,6 +335,7 @@
                     <div class="package-description">Reveal all objects, concepts, and entities mentioned herein.</div>
                     <button class="buy-button">Purchase</button>
                 </div>
+                -->
             </div>
         </div>
     </div>
@@ -434,10 +435,10 @@
         }
 
         function markPackageAsPurchased(type) {
-            const package = document.querySelector(`[data-type="${type}"]`);
-            if (package) {
-                package.classList.add('purchased');
-                package.querySelector('.buy-button').textContent = 'Purchased';
+            const packageElement = document.querySelector(`.package[data-type="${type}"]`);
+            if (packageElement) {
+                packageElement.classList.add('purchased');
+                packageElement.querySelector('.buy-button').textContent = 'Purchased';
             }
         }
 
