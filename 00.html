@@ -344,7 +344,13 @@
         let totalSpent = 0;
         const totalWords = 12;
         
-        // Remove the mock processPayment function since we're using real payments
+        function processPayment(type, price) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(true);
+                }, 800);
+            });
+        }
         
         function unlockWords(type) {
             const words = document.querySelectorAll(`[data-type="${type}"]`);
@@ -364,108 +370,33 @@
             document.getElementById('progressFill').style.width = `${(unlockedWords / totalWords) * 100}%`;
         }
         
-        // Stripe Payment Link URLs (replace with your actual links)
-        const paymentLinks = {
-            adjective: 'https://buy.stripe.com/test_your_adjective_link',
-            verb: 'https://buy.stripe.com/test_your_verb_link',
-            noun: 'https://buy.stripe.com/test_your_noun_link'
-        };
-
         document.querySelectorAll('.package').forEach(package => {
-            package.addEventListener('click', function() {
+            package.addEventListener('click', async function() {
                 if (this.classList.contains('purchased')) return;
                 
                 const type = this.dataset.type;
-                const paymentUrl = paymentLinks[type];
+                const price = parseFloat(this.dataset.price);
+                const button = this.querySelector('.buy-button');
                 
-                if (paymentUrl) {
-                    // Store the purchase attempt in localStorage for when user returns
-                    localStorage.setItem('attemptedPurchase', type);
-                    // Redirect to Stripe Payment Link
-                    window.location.href = paymentUrl;
+                button.textContent = 'Processing...';
+                
+                try {
+                    await processPayment(type, price);
+                    
+                    unlockWords(type);
+                    totalSpent += price;
+                    updateStats();
+                    
+                    button.textContent = 'Purchased';
+                    this.classList.add('purchased');
+                    
+                } catch (error) {
+                    button.textContent = 'Error';
+                    setTimeout(() => {
+                        button.textContent = 'Purchase';
+                    }, 2000);
                 }
             });
-        });
-
-        // Check for successful payment on page load
-        function checkForSuccessfulPayment() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const unlockType = urlParams.get('unlock');
-            const paymentStatus = urlParams.get('payment');
-            
-            if (paymentStatus === 'success' && unlockType) {
-                // Unlock the purchased word type
-                unlockWords(unlockType);
-                markPackageAsPurchased(unlockType);
-                
-                // Store the purchase permanently
-                let purchases = JSON.parse(localStorage.getItem('purchases') || '[]');
-                if (!purchases.includes(unlockType)) {
-                    purchases.push(unlockType);
-                    localStorage.setItem('purchases', JSON.stringify(purchases));
-                    
-                    // Update total spent
-                    const prices = { adjective: 0.99, verb: 1.49, noun: 1.29 };
-                    totalSpent += prices[unlockType];
-                    
-        updateStats();
-                }
-                
-                // Clean up URL
-                window.history.replaceState({}, document.title, window.location.pathname);
-                
-                // Show success message
-                showSuccessMessage(unlockType);
-            }
-        }
-
-        // Load previously purchased word types
-        function loadPreviousPurchases() {
-            const purchases = JSON.parse(localStorage.getItem('purchases') || '[]');
-            const prices = { adjective: 0.99, verb: 1.49, noun: 1.29 };
-            
-            purchases.forEach(type => {
-                unlockWords(type);
-                markPackageAsPurchased(type);
-                totalSpent += prices[type];
-            });
-            
-            updateStats();
-        }
-
-        function markPackageAsPurchased(type) {
-            const package = document.querySelector(`[data-type="${type}"]`);
-            if (package) {
-                package.classList.add('purchased');
-                package.querySelector('.buy-button').textContent = 'Purchased';
-            }
-        }
-
-        function showSuccessMessage(type) {
-            const message = document.createElement('div');
-            message.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #333;
-                color: white;
-                padding: 15px 20px;
-                border-radius: 4px;
-                z-index: 1000;
-                font-family: 'Times New Roman', serif;
-            `;
-            message.textContent = `Successfully unlocked ${type}s!`;
-            document.body.appendChild(message);
-            
-            setTimeout(() => {
-                message.remove();
-            }, 3000);
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadPreviousPurchases();
-            checkForSuccessfulPayment();
         });
         
         updateStats();
