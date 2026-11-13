@@ -1,0 +1,9 @@
+{
+    "slug": "cost-of-expression",
+    "title": "The Cost of Expression",
+    "prices": {"adjective": 0.99},
+    "lines": [
+        ["In the ",{"t":"adjective","w":"golden"}, " morning light,"],
+        ["where ",{"t":"adjective","w":"ancient"}, " trees whisper secrets"]
+    ]
+}

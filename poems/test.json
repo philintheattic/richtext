@@ -1,0 +1,9 @@
+{
+    "slug": "test",
+    "title": "Das ist ein Test Gedicht",
+    "prices": {"adjective": 0.99},
+    "lines": [
+        ["Wir sind am ",{"t":"adjective","w":"testen"}, " yo!"],
+        ["Und so wie es scheint ",{"t":"adjective","w":"funktioniert"}, " es auch."]
+    ]
+}

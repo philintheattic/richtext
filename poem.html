@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Language as Commodity</h1>
+            <p>An exploration of value, access, and the commodification of expression</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="text-area">
+                <h1 id="title"></h1>
+                <div id="poem" class="poem-text"></div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="stats">
+                    <h4>Access Status</h4>
+                    <div class="stat-item">
+                        <span>Words Unlocked</span>
+                        <span class="stat-value" id="unlockedCount">0 of 12</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Total Investment</span>
+                        <span class="stat-value" id="totalSpent">$0.00</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <h3>Word Categories</h3>
+                
+                <div class="package" data-type="adjective" data-price="0.99">
+                    <div class="package-header">
+                        <div class="package-name">Adjectives</div>
+                        <div class="package-price">$0.99</div>
+                    </div>
+                    <div class="package-description">Access to all descriptive words and qualities within this text.</div>
+                    <button class="buy-button">Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="module">
+        import { loadPoem, renderPoem } from './js/render.js';
+        const slug = new URLSearchParams(location.search).get('p') ?? 'cost-of-expression';
+        const poem = await loadPoem(slug);
+        document.getElementById('title').textContent = poem.title;
+        renderPoem(poem, document.getElementById('poem'));
+    </script>
+</body>
+</html>
