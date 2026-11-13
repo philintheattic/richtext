@@ -52,6 +52,37 @@ body {
     flex: 2.5;
     padding: 50px;
     background: white;
+    border: solid 1px red;
+}
+
+.poem-select-grid {
+    width: 100%;
+    border: solid 1px green;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-self: center;
+}
+
+.poem-card {
+    border: solid 4px black;
+    border-radius: 5%;
+    width: 250px;
+    height: 70px;
+    background-color: #e8e8e8;
+    transition: scale 0.3s;
+}
+
+.poem-card:hover {
+    cursor: pointer;
+    scale: 1.1;
+    transition: scale 0.3s;
+}
+
+.poem-card-contents {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .poem-title {

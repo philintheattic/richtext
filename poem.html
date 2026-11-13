@@ -12,8 +12,28 @@
             <h1>Language as Commodity</h1>
             <p>An exploration of value, access, and the commodification of expression</p>
         </div>
+
+        <div class="poem-select-grid">
+            <div class="poem-card" onclick="addParam('p', 'cost-of-expression')">
+                <div class="poem-card-contents">
+                    The Cost of Expression
+                </div>
+            </div>
+            <div class="poem-card" onclick="addParam('p', 'test')">
+                <div class="poem-card-contents">
+                    Ich bin
+                </div>
+            </div>
+            <div class="poem-card">
+                poem 3
+            </div>
+            <div class="poem-card">
+                poem 4
+            </div>
+        </div>
         
         <div class="main-content">
+            
             <div class="text-area">
                 <h1 id="title"></h1>
                 <div id="poem" class="poem-text"></div>
@@ -50,7 +70,13 @@
     </div>
 
 
-
+    <script>
+        function addParam(key, value) {
+            const url = new URL(window.location.href);
+            url.searchParams.set(key, value);
+            window.location.href = url.toString();
+        }
+    </script>
     <script type="module">
         import { loadPoem, renderPoem } from './js/render.js';
         const slug = new URLSearchParams(location.search).get('p') ?? 'cost-of-expression';

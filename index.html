@@ -277,6 +277,24 @@
         
         <div class="main-content">
             <div class="text-area">
+                <div class="poem-select-grid">
+                    <div class="poem-card" onclick="addParam('p', 'cost-of-expression')">
+                        <div class="poem-card-contents">
+                            The Cost of Expression
+                        </div>
+                    </div>
+                    <div class="poem-card">
+                        <div class="poem-card-contents">
+                            Ich bin
+                        </div>
+                    </div>
+                    <div class="poem-card">
+                        poem 3
+                    </div>
+                    <div class="poem-card">
+                        poem 4
+                    </div>
+                </div>
                 <div class="poem-title">"The Cost of Expression"</div>
                 <div class="poem-text" id="poemText">
                     In the <span class="locked-word" data-type="adjective" data-word="golden">■■■■■■<div class="tooltip">Adjective - $0.99</div></span> morning light,<br>
@@ -470,6 +488,12 @@
         });
         
         updateStats();
+
+        function addParam(key, value) {
+            const url = new URL(window.location.href);
+            url.searchParams.set(key, value);
+            window.history.pushState({}, "", url);
+        }
     </script>
 </body>
 </html>
