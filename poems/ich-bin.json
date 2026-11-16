@@ -1,6 +1,6 @@
 {
-    "slug": "test",
-    "title": "Das ist ein Test Gedicht",
+    "slug": "ich-bin",
+    "title": "Ich bin",
     "prices": {"adjective": 0.99},
     "lines": [
         ["Wir sind am ",{"t":"adjective","w":"testen"}, " yo!"],

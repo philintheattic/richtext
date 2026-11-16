@@ -52,23 +52,24 @@ body {
     flex: 2.5;
     padding: 50px;
     background: white;
-    border: solid 1px red;
 }
 
 .poem-select-grid {
     width: 100%;
-    border: solid 1px green;
+    padding-top: 10px;
+    padding-bottom: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    place-self: center;
+    place-items: center;
+    /* border-bottom: solid 1px #ddd; */
 }
 
 .poem-card {
-    border: solid 4px black;
-    border-radius: 5%;
+    border: solid 1px #ddd;
+    box-shadow: 3px 3px 15px #00000022;   
     width: 250px;
     height: 70px;
-    background-color: #e8e8e8;
+    background-color: #f8f8f8;
     transition: scale 0.3s;
 }
 
@@ -83,6 +84,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: larger;
 }
 
 .poem-title {
