@@ -78,10 +78,13 @@
     </script>
     <script type="module">
         import { loadPoem, renderPoem } from './js/render.js';
+        import { has, grant } from './js/store.js';
+        window.grant = grant;
+
         const slug = new URLSearchParams(location.search).get('p') ?? 'cost-of-expression';
         const poem = await loadPoem(slug);
         document.getElementById('title').textContent = poem.title;
-        renderPoem(poem, document.getElementById('poem'));
+        renderPoem(poem, document.getElementById('poem'), type => has(slug, type));
     </script>
 </body>
 </html>
