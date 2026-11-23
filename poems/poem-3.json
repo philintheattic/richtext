@@ -3,6 +3,8 @@
     "title": "Gedicht Nr.3",
     "prices": {"adjective": 0.99},
     "lines": [
+        ["by unknown author"],
+        [""],
         ["Wir sind am ",{"t":"adjective","w":"testen"}, " yo!"],
         ["Und so wie es scheint ",{"t":"adjective","w":"funktioniert"}, " es auch."]
     ]
