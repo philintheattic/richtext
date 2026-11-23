@@ -85,7 +85,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     font-size: larger;
+}
+
+.poem-card-title {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.poem-card-author {
+    font-size: smaller;
+    font-style: italic;
 }
 
 .poem-title {

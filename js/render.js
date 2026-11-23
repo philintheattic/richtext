@@ -23,3 +23,15 @@ export function renderPoem(poem, container, isUnlocked = () => true) {
     }
 
 }
+
+export function lockableWords(poem) {
+    return poem.lines.flat().filter(piece => typeof piece !== 'string');
+}
+
+export function countWords(poem) {
+    return lockableWords(poem).length;
+}
+
+export function countUnlocked(poem, isUnlocked) {
+    return lockableWords(poem).filter(word => isUnlocked(word.t)).length;
+}

@@ -3,6 +3,8 @@
     "title": "Ich bin",
     "prices": {"noun": 0.99},
     "lines": [
+        ["by neosophie___"],
+        [""],
         [{"t":"noun","w":"Füße"}, ", die laufen und"],
         [{"t":"noun","w":"Knie"}, ", die knicken;"],
         [{"t":"noun","w":"Waden"}, ", die halten und"],

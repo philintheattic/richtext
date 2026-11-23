@@ -16,17 +16,20 @@
         <div class="poem-select-grid">
             <div class="poem-card" onclick="addParam('p', 'cost-of-expression')">
                 <div class="poem-card-contents">
-                    The Cost of Expression
+                    <p class="poem-card-title">The Cost of Expression</p>
+                    <p clasS="poem-card-author">lorem ipsum</p>
                 </div>
             </div>
             <div class="poem-card" onclick="addParam('p', 'ich-bin')">
                 <div class="poem-card-contents">
-                    Ich bin
+                    <p class="poem-card-title">Ich bin</p>
+                    <p class="poem-card-author">neosophie___</p>
                 </div>
             </div>
             <div class="poem-card" onclick="addParam('p', 'poem-3')">
                 <div class="poem-card-contents">
-                    Poem 3
+                    <p class="poem-card-title">Poem 3</p>
+                    <p class="poem-card-author">unknown</p>
                 </div>
             </div>
         </div>
@@ -77,7 +80,7 @@
         }
     </script>
     <script type="module">
-        import { loadPoem, renderPoem } from './js/render.js';
+        import { loadPoem, renderPoem, lockableWords, countWords, countUnlocked } from './js/render.js';
         import { has, grant } from './js/store.js';
         window.grant = grant;
 
@@ -85,6 +88,14 @@
         const poem = await loadPoem(slug);
         document.getElementById('title').textContent = poem.title;
         renderPoem(poem, document.getElementById('poem'), type => has(slug, type));
+
+        // count words of poem
+        const isUnlocked = type => has(slug, type);
+        const total = countWords(poem);
+        const open = countUnlocked(poem, isUnlocked);
+
+        document.getElementById('unlockedCount').textContent = `${open} of ${total}`;
+        document.getElementById('progressFill').style.width = `${(open / total) * 100}%`;
     </script>
 </body>
 </html>
