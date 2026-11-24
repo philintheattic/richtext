@@ -1,11 +1,34 @@
 {
     "slug": "poem-3",
-    "title": "Gedicht Nr.3",
+    "title": "The Weather-Clock Points South",
     "prices": {"adjective": 0.99},
     "lines": [
-        ["by unknown author"],
+        ["by Amy Lowell"],
         [""],
-        ["Wir sind am ",{"t":"adjective","w":"testen"}, " yo!"],
-        ["Und so wie es scheint ",{"t":"adjective","w":"funktioniert"}, " es auch."]
+        ["I put your leaves aside,"],
+        ["one by one:"],
+        ["The ",{"t":"adjective","w":"stiff"}, ", broad outer leaves;"],
+        ["The smaller ones,"],
+        ["Pleasant to touch, veined with ",{"t":"adjective","w":"purple"}, ";"],
+        ["The ",{"t":"adjective","w":"glazed"}, " inner leaves."],
+        ["One by one"],
+        ["I parted you from your leaves,"],
+        ["Until you stood up like a ",{"t":"adjective","w":"white"}, " flower"],
+        ["Swaying slighty in the ",{"t":"adjective","w":"evening"}, " wind."],
+        [""],
+        [{"t":"adjective","w":"White"}, " flower,"],
+        ["Flower of wax, of jade, of ",{"t":"adjective","w":"unstreaked"}, " agate;"],
+        ["Flower with surfaces of ice,"],
+        ["With shadows faintly crimson."],
+        ["Where in all the garden is there such a flower?"],
+        ["The stars crowd through the ",{"t":"adjective","w":"lilac"}, " leaves"],
+        ["To look at you."],
+        ["The ",{"t":"adjective","w":"low"}, " moon brightens you with silver."],
+        [""],
+        ["The bud is mor ethan the calyx."],
+        ["There is nothing to equal a ",{"t":"adjective","w":"white"}, " bud,"],
+        ["of no colour, and of all,"],
+        ["Burnished by moonlight,"],
+        ["Thrust upon by a ",{"t":"adjective","w":"softöy-swinging"}, " wind."]
     ]
 }
