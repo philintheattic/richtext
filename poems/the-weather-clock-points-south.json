@@ -1,8 +1,8 @@
 {
     "slug": "the-weather-clock-points-south",
     "title": "The Weather-Clock Points South",
-    "price": 2.99,
-    "stripeLink": "https://buy.stripe.com/test_XXXXXXXX",
+    "price": 1.99,
+    "stripeLink": "https://buy.stripe.com/test_5kQ28ra2BfN9gJu5iCcjS01",
     "prices": {"adjective": 0.99},
     "lines": [
         ["by Amy Lowell"],
