@@ -26,10 +26,10 @@
                     <p class="poem-card-author">neosophie___</p>
                 </div>
             </div>
-            <div class="poem-card" onclick="addParam('p', 'poem-3')">
+            <div class="poem-card" onclick="addParam('p', 'the-weather-clock-points-south')">
                 <div class="poem-card-contents">
-                    <p class="poem-card-title">Poem 3</p>
-                    <p class="poem-card-author">unknown</p>
+                    <p class="poem-card-title">The Weather-Clock Points South</p>
+                    <p class="poem-card-author">Amy Lowell</p>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                 <div id="poem" class="poem-text"></div>
             </div>
             
-            <div class="sidebar">
+            <!-- <div class="sidebar">
                 <div class="stats">
                     <h4>Access Status</h4>
                     <div class="stat-item">
@@ -67,7 +67,25 @@
                     <div class="package-description">Access to all descriptive words and qualities within this text.</div>
                     <button class="buy-button">Purchase</button>
                 </div>
+            </div> -->
+
+            <div class="sidebar">
+                <div class="stats">
+                    <h4>Access Status</h4>
+                    <div class="stat-item"><span>Words unlocked</span><span class="stat-value" id="unlockedCount"></span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                </div>
+
+                <div class="package" id="package">
+                    <div class="package-header">
+                    <div class="package-name">Full poem</div>
+                    <div class="package-price" id="price"></div>
+                    </div>
+                    <div class="package-description">Unlock every hidden word in this poem.</div>
+                    <button class="buy-button" id="buyButton">Purchase</button>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -78,24 +96,49 @@
             url.searchParams.set(key, value);
             window.location.href = url.toString();
         }
+
+
     </script>
     <script type="module">
         import { loadPoem, renderPoem, lockableWords, countWords, countUnlocked } from './js/render.js';
         import { has, grant } from './js/store.js';
         window.grant = grant;
 
+
+
+        // render poems
         const slug = new URLSearchParams(location.search).get('p') ?? 'cost-of-expression';
         const poem = await loadPoem(slug);
         document.getElementById('title').textContent = poem.title;
-        renderPoem(poem, document.getElementById('poem'), type => has(slug, type));
 
-        // count words of poem
-        const isUnlocked = type => has(slug, type);
-        const total = countWords(poem);
-        const open = countUnlocked(poem, isUnlocked);
+        // check if payment was made
+        const params = new URLSearchParams(location.search);
+        if (params.get('paid') === '1') {
+            grant(slug);
+            history.replaceState({}, '', `?p=${slug}`);   // clean the URL
+        }
 
-        document.getElementById('unlockedCount').textContent = `${open} of ${total}`;
-        document.getElementById('progressFill').style.width = `${(open / total) * 100}%`;
+        renderPoem(poem, document.getElementById('poem'), () => has(slug));
+
+
+        function updatePanel(poem, slug) {
+            const unlocked = has(slug);
+            const total = countWords(poem);
+            const open = unlocked ? total : 0;
+
+            document.getElementById('unlockedCount').textContent = `${open} of ${total}`;
+            document.getElementById('progressFill').style.width = `${(open / total) * 100}%`;
+            document.getElementById('price').textContent = `$${poem.price.toFixed(2)}`;
+
+        }
+
+        updatePanel(poem, slug);
+        const button = document.getElementById('buyButton');
+        button.addEventListener('click', () => {
+            button.disabled = true;
+            button.textContent = 'Redirecting…';
+            window.location.assign(poem.stripeLink);
+        });
     </script>
 </body>
 </html>

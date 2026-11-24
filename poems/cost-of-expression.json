@@ -1,6 +1,8 @@
 {
     "slug": "cost-of-expression",
     "title": "The Cost of Expression",
+    "price": 2.99,
+    "stripeLink": "https://buy.stripe.com/test_XXXXXXXX",
     "prices": {"adjective": 0.99},
     "lines": [
         ["by lorem ipsum"],

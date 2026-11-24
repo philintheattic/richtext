@@ -1,6 +1,8 @@
 {
     "slug": "ich-bin",
     "title": "Ich bin",
+    "price": 2.99,
+    "stripeLink": "https://buy.stripe.com/test_4gMcN51w558v0Kw6mGcjS00",
     "prices": {"noun": 0.99},
     "lines": [
         ["by neosophie___"],
