@@ -1,13 +1,20 @@
 {
     "slug": "cost-of-expression",
     "title": "The Cost of Expression",
-    "price": 2.99,
-    "stripeLink": "https://buy.stripe.com/test_XXXXXXXX",
+    "price": 0.99,
+    "stripeLink": "https://buy.stripe.com/test_eVq6oHeiRcAXfFq7qKcjS02",
     "prices": {"adjective": 0.99},
     "lines": [
         ["by lorem ipsum"],
         [""],
         ["In the ",{"t":"adjective","w":"golden"}, " morning light,"],
-        ["where ",{"t":"adjective","w":"ancient"}, " trees whisper secrets"]
+        ["where ",{"t":"adjective","w":"ancient"}, " trees whisper secrets"],
+        ["I ",{"t":"adjective","w":"walk"}, " through ", {"t":"adjective","w":"forgotten"}, "paths,"],
+        ["Searching for words that money cannot ",{"t":"adjective","w":"steal"}],
+        [""],
+        ["But even thoughts become ",{"t":"adjective","w":"expensive"}],
+        ["And dreams require ",{"t":"adjective","w":"subscription"}, " fees."],
+        ["The ",{"t":"adjective","w":"simple"}, " act of feeling"],
+        ["Now comes with ",{"t":"adjective","w":"hidden"}, " charges."]
     ]
 }
